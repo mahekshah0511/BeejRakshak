@@ -58,84 +58,163 @@ export default function Login({ onLogin }) {
   }
 
   return (
-    <div className="min-h-screen flex flex-col items-center justify-center p-6 relative overflow-hidden">
-      {/* Background */}
-      <div className="absolute inset-0 bg-gradient-to-br from-emerald-600 via-emerald-700 to-teal-800 pointer-events-none" />
-      <div className="absolute inset-0 pointer-events-none opacity-80" />
-      <div className="absolute top-0 left-0 right-0 h-40 bg-gradient-to-b from-white/10 to-transparent pointer-events-none" />
-      <div className="absolute bottom-0 left-0 right-0 h-64 bg-gradient-to-t from-amber-500/20 to-transparent pointer-events-none" />
+    <div className="min-h-screen flex items-center justify-center p-4 relative overflow-hidden bg-[#0a1a12]">
+      {/* Animated gradient background */}
+      <div className="absolute inset-0 bg-gradient-to-br from-emerald-950 via-[#0a1a12] to-teal-950 pointer-events-none" />
 
-      <div className="w-full max-w-md relative z-10">
-        {/* Brand */}
+      {/* Animated blobs */}
+      <div className="absolute top-[-10%] left-[-10%] w-[500px] h-[500px] bg-emerald-600/20 rounded-full blur-[100px] animate-blob pointer-events-none" />
+      <div className="absolute bottom-[-10%] right-[-10%] w-[500px] h-[500px] bg-teal-500/15 rounded-full blur-[100px] animate-blob-slow pointer-events-none" />
+      <div className="absolute top-[40%] right-[20%] w-[300px] h-[300px] bg-amber-500/10 rounded-full blur-[80px] animate-blob-slower pointer-events-none" />
+
+      {/* Grid pattern overlay */}
+      <div
+        className="absolute inset-0 opacity-[0.03] pointer-events-none"
+        style={{
+          backgroundImage: 'linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px)',
+          backgroundSize: '60px 60px',
+        }}
+      />
+
+      {/* Floating particles */}
+      <div className="absolute top-[15%] left-[20%] w-2 h-2 bg-emerald-400/40 rounded-full animate-float pointer-events-none" />
+      <div className="absolute top-[60%] left-[10%] w-1.5 h-1.5 bg-teal-400/30 rounded-full animate-float-slow pointer-events-none" />
+      <div className="absolute top-[30%] right-[15%] w-1 h-1 bg-amber-400/40 rounded-full animate-float-slower pointer-events-none" />
+      <div className="absolute bottom-[20%] left-[30%] w-2.5 h-2.5 bg-emerald-300/20 rounded-full animate-float pointer-events-none" />
+      <div className="absolute top-[70%] right-[25%] w-1.5 h-1.5 bg-emerald-400/30 rounded-full animate-float-slow pointer-events-none" />
+
+      <div className="w-full max-w-[420px] relative z-10 animate-slide-up">
+        {/* Logo + Brand */}
         <div className="text-center mb-8">
-          <h1 className="text-4xl font-extrabold text-white drop-shadow-lg tracking-tight">
+          <div className="inline-flex items-center justify-center w-16 h-16 rounded-2xl bg-gradient-to-br from-emerald-400 to-teal-500 shadow-glow-emerald mb-5 animate-float-slow">
+            <svg className="w-8 h-8 text-white" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.5">
+              <path strokeLinecap="round" strokeLinejoin="round" d="M12 3c-1.2 0-4.8 1.6-4.8 6.4 0 2.4.8 4 2.4 5.2V21h4.8v-6.4c1.6-1.2 2.4-2.8 2.4-5.2C16.8 4.6 13.2 3 12 3z" />
+              <path strokeLinecap="round" d="M12 3v6" />
+            </svg>
+          </div>
+          <h1 className="text-3xl font-extrabold text-white tracking-tight text-shadow">
             BeejRakshak
           </h1>
-          <p className="mt-2 text-emerald-100 text-sm font-medium">
-            {isSignUp ? 'Create your account' : 'Sign in to continue'}
+          <p className="mt-2 text-emerald-300/70 text-sm font-medium tracking-wide">
+            Seed Protection Intelligence Platform
           </p>
         </div>
 
         {/* Card */}
-        <div className="rounded-3xl bg-white/95 backdrop-blur shadow-agri-lg overflow-hidden">
+        <div className="rounded-3xl bg-white/[0.07] backdrop-blur-2xl border border-white/[0.08] shadow-glass-lg overflow-hidden">
+          {/* Tab switcher */}
+          <div className="flex border-b border-white/[0.06]">
+            <button
+              type="button"
+              onClick={() => { setIsSignUp(false); setError('') }}
+              className={`flex-1 py-4 text-sm font-semibold tracking-wide transition-all duration-300 ${
+                !isSignUp
+                  ? 'text-white bg-white/[0.06] border-b-2 border-emerald-400'
+                  : 'text-white/40 hover:text-white/60'
+              }`}
+            >
+              Sign in
+            </button>
+            <button
+              type="button"
+              onClick={() => { setIsSignUp(true); setError('') }}
+              className={`flex-1 py-4 text-sm font-semibold tracking-wide transition-all duration-300 ${
+                isSignUp
+                  ? 'text-white bg-white/[0.06] border-b-2 border-emerald-400'
+                  : 'text-white/40 hover:text-white/60'
+              }`}
+            >
+              Create account
+            </button>
+          </div>
+
           <div className="p-6 sm:p-8">
             {error && (
-              <div className="mb-5 p-4 rounded-xl bg-amber-50 border border-amber-200 text-amber-800 text-sm font-medium" role="alert">
-                {error}
+              <div className="mb-5 p-3.5 rounded-xl bg-red-500/10 border border-red-500/20 text-red-300 text-sm font-medium animate-scale-in" role="alert">
+                <div className="flex items-center gap-2">
+                  <svg className="w-4 h-4 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="2">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M12 9v2m0 4h.01M12 3a9 9 0 100 18 9 9 0 000-18z" />
+                  </svg>
+                  {error}
+                </div>
               </div>
             )}
 
             <form onSubmit={isSignUp ? handleSignUp : handleLogin} className="space-y-5">
               {isSignUp && (
-                <div>
-                  <label className="block text-sm font-semibold text-stone-700">Your name</label>
-                  <input
-                    type="text"
-                    value={name}
-                    onChange={(e) => setName(e.target.value)}
-                    placeholder="Enter your name"
-                    className="mt-1.5 w-full px-4 py-3.5 rounded-xl border-2 border-stone-200 text-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 bg-stone-50/80"
-                    autoComplete="name"
-                  />
+                <div className="animate-slide-up">
+                  <label className="block text-xs font-semibold text-emerald-300/80 uppercase tracking-wider mb-2">
+                    Your name
+                  </label>
+                  <div className="relative">
+                    <div className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30">
+                      <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M15.75 6a3.75 3.75 0 11-7.5 0 3.75 3.75 0 017.5 0zM4.5 20.118a7.5 7.5 0 0115 0" />
+                      </svg>
+                    </div>
+                    <input
+                      type="text"
+                      value={name}
+                      onChange={(e) => setName(e.target.value)}
+                      placeholder="Enter your name"
+                      className="w-full pl-12 pr-4 py-4 rounded-xl bg-white/[0.06] border border-white/[0.08] text-white placeholder-white/30 text-base focus:outline-none focus:ring-2 focus:ring-emerald-500/40 focus:border-emerald-500/40 transition-all"
+                      autoComplete="name"
+                    />
+                  </div>
                 </div>
               )}
 
               <div>
-                <label className="block text-sm font-semibold text-stone-700">Mobile number</label>
-                <input
-                  type="tel"
-                  value={mobile}
-                  onChange={(e) => setMobile(mobileOnly(e.target.value))}
-                  placeholder="10-digit mobile number"
-                  inputMode="numeric"
-                  maxLength={10}
-                  className="mt-1.5 w-full px-4 py-3.5 rounded-xl border-2 border-stone-200 text-lg focus:ring-2 focus:ring-emerald-500 focus:border-emerald-500 bg-stone-50/80"
-                  autoComplete="tel"
-                />
+                <label className="block text-xs font-semibold text-emerald-300/80 uppercase tracking-wider mb-2">
+                  Mobile number
+                </label>
+                <div className="relative">
+                  <div className="absolute left-4 top-1/2 -translate-y-1/2 text-white/30">
+                    <svg className="w-5 h-5" fill="none" viewBox="0 0 24 24" stroke="currentColor" strokeWidth="1.5">
+                      <path strokeLinecap="round" strokeLinejoin="round" d="M10.5 1.5H8.25A2.25 2.25 0 006 3.75v16.5a2.25 2.25 0 002.25 2.25h7.5A2.25 2.25 0 0018 20.25V3.75a2.25 2.25 0 00-2.25-2.25H13.5m-3 0V3h3V1.5m-3 0h3m-3 18.75h3" />
+                    </svg>
+                  </div>
+                  <input
+                    type="tel"
+                    value={mobile}
+                    onChange={(e) => setMobile(mobileOnly(e.target.value))}
+                    placeholder="10-digit mobile number"
+                    inputMode="numeric"
+                    maxLength={10}
+                    className="w-full pl-12 pr-4 py-4 rounded-xl bg-white/[0.06] border border-white/[0.08] text-white placeholder-white/30 text-base focus:outline-none focus:ring-2 focus:ring-emerald-500/40 focus:border-emerald-500/40 transition-all"
+                    autoComplete="tel"
+                  />
+                </div>
               </div>
 
+              {/* Submit button */}
               <button
                 type="submit"
                 disabled={loading}
-                className="w-full py-4 rounded-xl bg-gradient-to-r from-emerald-600 to-teal-600 text-white font-bold text-lg shadow-lg shadow-emerald-500/30 hover:from-emerald-700 hover:to-teal-700 disabled:opacity-60 transition-all"
+                className="group w-full py-4 rounded-xl bg-gradient-to-r from-emerald-500 to-teal-500 text-white font-bold text-base shadow-lg shadow-emerald-500/25 hover:shadow-emerald-500/40 hover:from-emerald-400 hover:to-teal-400 disabled:opacity-50 transition-all duration-300 relative overflow-hidden"
               >
-                {loading ? 'Please wait…' : isSignUp ? 'Sign up' : 'Sign in'}
-              </button>
-
-              <button
-                type="button"
-                onClick={() => { setIsSignUp((s) => !s); setError('') }}
-                className="w-full py-2.5 text-sm text-stone-500 hover:text-emerald-600 font-medium"
-              >
-                {isSignUp ? 'Already have an account? Sign in' : 'New here? Create an account'}
+                {/* Shimmer overlay */}
+                <div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/10 to-transparent translate-x-[-200%] group-hover:translate-x-[200%] transition-transform duration-700 pointer-events-none" />
+                {loading ? (
+                  <span className="flex items-center justify-center gap-2">
+                    <svg className="w-5 h-5 animate-spin" fill="none" viewBox="0 0 24 24">
+                      <circle className="opacity-25" cx="12" cy="12" r="10" stroke="currentColor" strokeWidth="4" />
+                      <path className="opacity-75" fill="currentColor" d="M4 12a8 8 0 018-8V0C5.373 0 0 5.373 0 12h4z" />
+                    </svg>
+                    Please wait...
+                  </span>
+                ) : isSignUp ? 'Create account' : 'Sign in'}
               </button>
             </form>
           </div>
         </div>
 
-        <p className="mt-6 text-center text-emerald-100/90 text-xs">
-          AgriTech for farmers
-        </p>
+        {/* Footer */}
+        <div className="mt-6 text-center">
+          <p className="text-white/20 text-xs tracking-wide">
+            Satellite-powered AgriTech for Indian farmers
+          </p>
+        </div>
       </div>
     </div>
   )
